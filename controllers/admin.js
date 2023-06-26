@@ -17,7 +17,8 @@ exports.postAddProduct = (req, res, next) => {
     title: title,
     price: price,
     imageUrl: imageUrl,
-    description:description
+    description: description,
+    userId:req.user.id
   }).then(() => {
     console.log('Created Product');
      res.redirect("/admin/products");
@@ -28,6 +29,7 @@ exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit
   const prodId = req.params.productId;
   Product.findAll({ where: { id: prodId } }).then(product => {
+    console.log(product)
     if (!product) {
       return res.redirect("/")
     }
